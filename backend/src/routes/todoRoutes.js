@@ -11,32 +11,114 @@ const pool = new Pool({
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
     password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
+    port: parseInt(process.env.DB_PORT), // Convert to number
 });
 
-pool.connect(() => {
-    console.log('     ✅ Connected to PostgreSQL database')
-})
+// Test connection
+pool.on('connect', () => {
+    console.log('\n✅ Connected to PostgreSQL database\n')
+});
+
+pool.on('error', (err) => {
+    console.error('❌ PostgreSQL pool error:', err)
+});
+
+// ========== TODO ROUTES ==========
 
 // GET all todos
-routes.get('/todo', async (req, res) => {
+routes.get('/todos', async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM todos');
-        res.json(result.rows);
+        const result = await pool.query('SELECT * FROM todos ORDER BY created_at DESC');
+        res.json({
+            success: true,
+            count: result.rowCount,
+            data: result.rows
+        });
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        console.error('Error fetching todos:', err);
+        res.status(500).json({ 
+            success: false,
+            error: err.message 
+        });
+    }
+});
+
+routes.post('/todos', async (req, res) => {
+    try {
+        const { user_id, title, description, status, priority, due_date, completed_at } = req.body;
+
+        const result = await pool.query(
+            `INSERT INTO todos (user_id, title, description, status, priority, due_date, completed_at) 
+             VALUES ($1, $2, $3, $4, $5, $6, $7) 
+             RETURNING *`,
+            [user_id, title.trim(), description.trim(), status, priority, due_date, completed_at]
+        );
+        
+        res.json({
+            success: true,
+            message: 'Todo created successfully',
+            data: result.rows[0]
+        });
+        
+    } 
+    
+    catch (err) {
+        console.error('Error creating todo:', err);
     }
 });
 
 
-// Get all users
+
+
+
+// ========== USER ROUTES ==========
+
+// GET all users
 routes.get('/users', async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM users');
-        res.json(result.rows);
+        const result = await pool.query('SELECT id, username, email, created_at FROM users ORDER BY created_at DESC');
+        res.json({
+            success: true,
+            count: result.rowCount,
+            data: result.rows
+        });
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        console.error('Error fetching users:', err);
+        res.status(500).json({ 
+            success: false,
+            error: err.message 
+        });
     }
 });
+
+// POST create new user (FIXED - was missing response)
+routes.post('/users', async (req, res) => {
+    try {
+        const { username, email, password_hash } = req.body;
+
+        const result = await pool.query(
+            `INSERT INTO users (username, email, password_hash) 
+             VALUES ($1, $2, $3) 
+             RETURNING id, username, email, created_at`,
+            [username, email, password_hash]
+        );
+        
+        res.json({
+            success: true,
+            message: 'User created successfully',
+            data: result.rows[0]
+        });
+        
+        console.log("✅ User added:", result.rows[0]);
+        
+    } catch (err) {
+        console.error("❌ Error creating user:", err);
+        res.status(500).json({
+            success: false,
+            error: 'Failed to create user'
+        });
+    }
+});
+
 
 export default routes
