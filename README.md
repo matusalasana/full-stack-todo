@@ -26,15 +26,16 @@ A complete Todo application built with **React + Vite** frontend, **Node.js + Ex
 - ✅ Automatic timestamps
 
 ## 📁 Project Structure
+```bash
 todoapp/
 ├── backend/
 │   ├── src/
-│   │   ├── server.js          # Express server
-│   │   ├── db.js              # PostgreSQL connection
-│   │   ├── routes.js          # API routes
-│   │   └── controllers/       # Route controllers
-│   ├── .env                   # Environment variables
-│   ├── .env.example           # Env template
+│   │   ├── server.js
+│   │   ├── db.js
+│   │   ├── routes.js
+│   │   └── controllers/
+│   ├── .env                  
+│   ├── .env.example 
 │   └── package.json
 ├── frontend/
 │   ├── src/
@@ -42,11 +43,11 @@ todoapp/
 │   │   ├── pages/
 │   │   ├── App.jsx
 │   │   └── main.jsx
-│   ├── .env                   # Frontend env vars
-│   ├── vite.config.js         # Vite configuration
+│   ├── .env
+│   ├── vite.config.js
 │   └── package.json
 └── README.md
-
+```
 ## 🛠️ Installation & Setup
 
 ### Prerequisites
@@ -68,13 +69,13 @@ npm install
 
 ### 1. Configure PostgreSQL
 ```bash
--- Create database
+# Create database
 CREATE DATABASE todo_db;
 
--- Connect to database
+# Connect to database
 \c todo_db
 
--- Create users table
+# Create users table
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
@@ -83,7 +84,7 @@ CREATE TABLE users (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create todos table
+# Create todos table
 CREATE TABLE todos (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id),
