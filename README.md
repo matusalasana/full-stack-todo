@@ -1,29 +1,67 @@
+<!-- Banner -->
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=1D4ED8&height=140&section=header"/>
+
 # 📝 Full-Stack Todo Application
 
-A complete Todo application built with **React + Vite** frontend, **Node.js + Express** backend, and **PostgreSQL** database.
+> A modern full-stack Todo application built with **React (Vite)**, **Node.js (Express)**, and **PostgreSQL**.
 
-## 🚀 Features
+This project demonstrates full-stack development concepts including authentication-ready backend design, REST APIs, relational database structure, and a clean responsive frontend UI.
 
-### Frontend (React + Vite)
-- ✅ Modern React with Hooks
-- ✅ Responsive design
-- ✅ Real-time todo management
-- ✅ Filter todos by status/priority
-- ✅ Add, edit, delete todos
-- ✅ Clean UI with CSS styling
+---
 
-### Backend (Node.js + Express)
-- ✅ RESTful API with Express
-- ✅ PostgreSQL database with pg
-- ✅ JWT authentication (ready for implementation)
-- ✅ Error handling and validation
-- ✅ CORS enabled
+## ✨ Features
 
-### Database (PostgreSQL)
-- ✅ Users and Todos tables
-- ✅ Foreign key relationships
-- ✅ Check constraints for status/priority
-- ✅ Automatic timestamps
+### 📌 Core Functionality
+- Create, update, delete todos
+- Mark todos as completed
+- Filter by status and priority
+- Due date support
+- Clean and responsive UI
+
+---
+
+### 🎨 Frontend (React + Vite)
+- React with Hooks
+- Component-based architecture
+- Axios API integration
+- Responsive UI design
+- Real-time state updates
+
+---
+
+### ⚙️ Backend (Node.js + Express)
+- RESTful API design
+- PostgreSQL integration (pg driver)
+- Authentication-ready structure (JWT setup included)
+- Input validation & error handling
+- CORS enabled API
+
+---
+
+### 🗄️ Database (PostgreSQL)
+- Users & Todos relational schema
+- Foreign key relationships
+- Status & priority constraints
+- Timestamp tracking
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend**
+- React 19
+- Vite
+- JavaScript
+- Axios
+
+**Backend**
+- Node.js
+- Express.js
+- PostgreSQL
+- bcryptjs
+- jsonwebtoken
+
+---
 
 ## 📁 Project Structure
 ```bash
@@ -154,5 +192,10 @@ GET /users - Get all users
 POST /users - Create new user
 POST /users/login - User login
 ```
+## 👨‍💻 Author
+
+### Sana — Full-Stack Developer
 
 ### THANK YOU FOR TAKING YOUR TIME TO READ THIS
+
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=1D4ED8&height=140&section=footer"/>
